@@ -70,10 +70,7 @@ const lines = readFileSync("day2.txt", { encoding: "utf-8" }) // read day??.txt 
     function part2() {
       const outcomes = lines.map((line) => {
         const opponentMove = mapInput[line[0]];
-
-        // Guess our move from the instructions
         const ourMove = solution[line[0]][line[1]];
-
         return score(opponentMove, ourMove);
       });
       console.log(outcomes.reduce((a, b) => a + b, 0));
