@@ -64,7 +64,26 @@ function part1() {
 }
 
 function part2() {
-  //do something here
+  const monkeys = getMonkeys();
+  const divider = monkeys.map((m) => m.divisibleBy).reduce((a, b) => a * b, 1);
+  for (let i = 0; i < 10000; i++) {
+    for (const monkey of monkeys) {
+      let items = monkey.items;
+      while (items.length) {
+        let item = items.shift();
+        monkey.totalInspectedObjects++;
+
+        item = monkey.operation(item);
+        item = item % divider;
+        const destination = monkey.sendTo(item);
+
+        monkeys[destination].items.push(item);
+      }
+    }
+  }
+  const activity = monkeys.map((m) => m.totalInspectedObjects);
+  activity.sort((a, b) => b - a);
+  console.log(activity[0] * activity[1]);
 }
 
 part1();
